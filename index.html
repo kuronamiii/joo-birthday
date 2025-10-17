@@ -34,6 +34,11 @@
   .confetti .piece{position:absolute;width:10px;height:12px;border-radius:2px;animation:confFall var(--dur,3s) linear forwards}
   @keyframes confFall{0%{transform:translateY(-10vh) rotate(0)}100%{transform:translateY(110vh) rotate(720deg)}}
   @media(max-width:480px){.card{padding:20px}.frame{width:200px;height:200px}.reel{width:66px;height:84px}.reel .emoji{font-size:30px}}
+  @media (min-width: 768px) {
+  .slide {
+    background-attachment: fixed;
+  }
+}
 </style>
 </head>
 <body>
