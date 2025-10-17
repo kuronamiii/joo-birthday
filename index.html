@@ -6,17 +6,50 @@
 <title>Joo's Birthday</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
+  html,body{height:100%;width:100%;overflow:hidden}
   body{
     font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto;
     background:linear-gradient(135deg,#FFDEE9 0%, #B5FFFC 100%);
-    -webkit-font-smoothing:antialiased;overflow:hidden;
+    -webkit-font-smoothing:antialiased;
   }
+
   .slider-viewport{width:100vw;height:100vh;position:relative;overflow:hidden;touch-action:pan-y;}
   .slides{height:100%;display:flex;transition:transform .45s cubic-bezier(.18,.9,.25,1);}
-  .slide{min-width:100%;display:flex;justify-content:center;align-items:center;padding:28px;}
-  .card{width:90%;max-width:450px;background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);
-    border-radius:20px;padding:34px;text-align:center;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.16);}
+  .slide{
+    min-width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:28px;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-attachment:scroll;
+    position:relative;
+  }
+
+  /* ✅ Safari-specific fix */
+  @supports (-webkit-touch-callout: none) {
+    .slide {
+      background-attachment:scroll !important;
+      background-size:cover !important;
+      background-position:center center !important;
+    }
+  }
+
+  .card{
+    width:90%;
+    max-width:450px;
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(10px);
+    border-radius:20px;
+    padding:34px;
+    text-align:center;
+    color:#fff;
+    box-shadow:0 10px 30px rgba(0,0,0,0.16);
+  }
+
   .title{font-size:clamp(18px,3vw,28px);margin-bottom:12px}
   .subtitle{font-size:clamp(13px,2vw,16px);opacity:0.95;margin-bottom:14px}
   .btn{margin-top:14px;padding:12px 22px;border-radius:12px;border:none;background:#fff;color:#ff416c;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,0.12)}
@@ -33,14 +66,19 @@
   .confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:40}
   .confetti .piece{position:absolute;width:10px;height:12px;border-radius:2px;animation:confFall var(--dur,3s) linear forwards}
   @keyframes confFall{0%{transform:translateY(-10vh) rotate(0)}100%{transform:translateY(110vh) rotate(720deg)}}
-  @media(max-width:480px){.card{padding:20px}.frame{width:200px;height:200px}.reel{width:66px;height:84px}.reel .emoji{font-size:30px}}
+  @media(max-width:480px){
+    .card{padding:20px}
+    .frame{width:200px;height:200px}
+    .reel{width:66px;height:84px}
+    .reel .emoji{font-size:30px}
+  }
 </style>
 </head>
 <body>
   <div class="slider-viewport" id="viewport">
     <div class="slides" id="slides">
       <!-- Slide 0 -->
-      <section class="slide" style="background:url('bg/bg-kuromi.jpg')center/cover;background-repeat: no-repeat;background-attachment: fixed;">
+      <section class="slide" style="background-image:url('bg/bg-kuromi.jpg');">
         <div class="card">
           <div class="title">🎉 Happy 24th Birthday, Joo!</div>
           <div class="subtitle">Wishing you a joyful day!</div>
@@ -50,7 +88,7 @@
       </section>
 
       <!-- Slide 1 -->
-      <section class="slide" style="background:url('bg/bg-kuromi3.jpg')center/cover;background-repeat: no-repeat;background-attachment: fixed;">
+      <section class="slide" style="background-image:url('bg/bg-kuromi3.jpg');">
         <div class="card">
           <div class="title">A heartfelt wish</div>
           <div class="subtitle">May you grow older and become an even better person than before, stronger and prettier for your younger siblings. Stay true to yourself, and always live your life with passion. xoxo. 🍰</div>
@@ -59,7 +97,7 @@
       </section>
 
       <!-- Slide 2 -->
-      <section class="slide" style="background:url('bg/bg-kuromi2.jpg')center/cover;background-repeat: no-repeat;background-attachment: fixed;">
+      <section class="slide" style="background-image:url('bg/bg-kuromi2.jpg');">
         <div class="card">
           <div class="title">Get ready for the gift! 🎁</div>
           <div class="subtitle">Maybe this isn't too fancy, but hopefully it will make today a good day for you.</div>
@@ -68,7 +106,7 @@
       </section>
 
       <!-- Slide 3: Jackpot -->
-      <section class="slide" style="background:url('bg/bg-kuromi5.jpg')center/cover;background-repeat: no-repeat;background-attachment: fixed;">
+      <section class="slide" style="background-image:url('bg/bg-kuromi5.jpg');">
         <div class="card">
           <div class="title">Spin it! Gambler!😂 🎰</div>
           <div class="subtitle">Good luck, Joo!</div>
@@ -85,7 +123,7 @@
       </section>
 
       <!-- Slide 4: Congrats -->
-      <section class="slide" style="background:url('bg/bg-kuromi6.jpg')center/cover;background-repeat: no-repeat;background-attachment: fixed;">
+      <section class="slide" style="background-image:url('bg/bg-kuromi6.jpg');">
         <div class="card">
           <div class="title">🎊 Congratulations! 🎈</div>
           <div class="subtitle">You unlocked your birthday surprise!</br> RBAFJVKU2A2UNK9W </br> redeem it quickly ya joo, but if u can't just tell me.</div>
