@@ -97,6 +97,31 @@
     <div class="confetti" id="confetti"></div>
   </div>
 
+  <!-- 🎵 Background Music -->
+<audio id="bgMusic" src="music/hepibeerday.mp3" preload="auto" loop></audio>
+
+<!-- Music Controls -->
+<button id="musicBtn" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  color: #ff416c;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  display: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+">
+  🔊
+</button>
+
+
 <script>
 /* --- Slider / touch handlers --- */
 const slidesEl = document.getElementById('slides');
@@ -241,6 +266,53 @@ function burstConfetti(){
 
 /* init: ensure slide positioning on resize */
 window.addEventListener('resize', ()=> goTo(currentIndex));
+
+// Background music autoplay + toggle
+const bgMusic = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+let isPlaying = false;
+
+// Attempt autoplay on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const playPromise = bgMusic.play();
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      isPlaying = true;
+      musicBtn.innerText = '🔊';
+      musicBtn.style.display = 'block';
+    }).catch(() => {
+      // Autoplay blocked — show button to enable
+      musicBtn.innerText = '🔇';
+      musicBtn.style.display = 'block';
+    });
+  }
+});
+
+// Fade helper
+function fadeAudio(audio, targetVolume, duration = 800) {
+  const step = (targetVolume - audio.volume) / (duration / 50);
+  const fade = setInterval(() => {
+    audio.volume = Math.min(Math.max(audio.volume + step, 0), 1);
+    if ((step > 0 && audio.volume >= targetVolume) || (step < 0 && audio.volume <= targetVolume)) {
+      clearInterval(fade);
+      audio.volume = targetVolume;
+    }
+  }, 50);
+}
+
+// Toggle music
+musicBtn.addEventListener('click', () => {
+  if (isPlaying) {
+    fadeAudio(bgMusic, 0);
+    setTimeout(() => bgMusic.pause(), 800);
+    musicBtn.innerText = '🔇';
+  } else {
+    bgMusic.volume = 0;
+    bgMusic.play().then(() => fadeAudio(bgMusic, 1));
+    musicBtn.innerText = '🔊';
+  }
+  isPlaying = !isPlaying;
+});
 </script>
 </body>
 </html>
